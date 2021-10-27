@@ -16,6 +16,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import { availableRequests } from './http/availableRequests';
 
 export default class AppUpdater {
   constructor() {
@@ -72,12 +73,19 @@ const createWindow = async () => {
   };
 
   mainWindow = new BrowserWindow({
+    title: 'Test Exercise',
     show: false,
-    width: 1024,
-    height: 728,
+    width: 800,
+    minWidth: 400,
+    maxWidth: 1200,
+    height: 800,
+    minHeight: 600,
+    maxHeight: 1000,
     icon: getAssetPath('icon.png'),
     webPreferences: {
+      //nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: false,
     },
   });
 
@@ -127,6 +135,19 @@ app.on('window-all-closed', () => {
 app
   .whenReady()
   .then(() => {
+    ipcMain.on('remoteSend', (event, args) => {
+      const action: 'getCurrencies' | 'getSymbols' | 'getCurrencyPerCountry' =
+        args.action;
+      const ipcData = {
+        event: event,
+        messageId: args.messageId,
+      };
+
+      const request = availableRequests[action];
+
+      request.get(ipcData);
+    });
+
     createWindow();
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the

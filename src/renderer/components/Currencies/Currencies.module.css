@@ -1,0 +1,43 @@
+.container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.innerContainer {
+  position: relative;
+}
+
+.flexContainer {
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+}
+
+.dropbox {
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  background-color: white;
+  border-left: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  max-height: 150px;
+  overflow: auto;
+}
+
+.dropbox_hide {
+  display: none;
+}
+
+.dropbox_list {
+  list-style: none;
+  padding-inline-start: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}

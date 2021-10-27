@@ -1,0 +1,13 @@
+.dropbox_item {
+  display: flex;
+  transition: 0.2s linear;
+}
+
+.dropbox_item:hover {
+  cursor: pointer;
+  background-color: lightblue;
+}
+
+.iconContainer {
+  margin: 0 7px;
+}
